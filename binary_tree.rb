@@ -1,4 +1,6 @@
 #! /usr/bin/ruby
+gem 'minitest'
+require 'minitest/autorun'
 
 class Node
      attr_accessor :left, :right, :data
@@ -32,4 +34,36 @@ class Node
 
 end
 
-# need to write deletion and minitest tests
+describe Node do
+  let :node do
+   Node.new
+  end
+
+  describe "#insertion" do
+    it "should insert a node at root" do
+      node.insertion 2
+      (node.data).must_equal 2
+    end
+    it "should a lesser node to the left" do
+       node.insertion 6
+       node.insertion 2
+       (node.left.data ).must_equal 2
+    end
+    it "should a greater node to the right" do
+       node.insertion 6
+       node.insertion 8
+       (node.right.data).must_equal 8
+    end
+  end
+
+  describe "#search" do
+    it "should find node of value" do
+      node.insertion 6
+      node.insertion 2
+      node.insertion 8
+      node.insertion 3
+      node.search(3).must_equal node.left.right
+    end
+  end
+end
+
